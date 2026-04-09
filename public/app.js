@@ -1,13 +1,15 @@
 const frame = document.getElementById("frame")
 const screen = document.getElementById("screen")
 
-let loopRunning = false
+let currentUrl = ""
+let lastAction = null
+let running = false
 
 function go() {
   const url = document.getElementById("url").value
   const mode = document.getElementById("mode").value
 
-  loopRunning = false
+  running = false
   screen.style.display = "none"
   frame.style.display = "block"
 
@@ -22,7 +24,7 @@ function go() {
   }
 
   if (mode === "iframe") {
-    frame.outerHTML = `<iframe id="frame" src="${url}"></iframe>`
+    frame.outerHTML = `<iframe src="${url}"></iframe>`
   }
 
   if (mode === "embed") {
@@ -34,23 +36,29 @@ function go() {
   }
 }
 
-async function startBrowser(url) {
-  loopRunning = true
+function startBrowser(url) {
+  currentUrl = url
+  running = true
+  loop()
+}
 
-  async function loop() {
-    if (!loopRunning) return
+async function loop() {
+  if (!running) return
 
-    try {
-      const res = await fetch("/screenshot?url=" + encodeURIComponent(url))
-      const data = await res.json()
+  try {
+    let actionParam = lastAction ? "&action=" + encodeURIComponent(JSON.stringify(lastAction)) : ""
+    lastAction = null
 
-      if (data.screenshot) {
-        screen.src = "data:image/png;base64," + data.screenshot
-      }
-    } catch {}
+    const res = await fetch("/screenshot?url=" + encodeURIComponent(currentUrl) + actionParam)
+    const data = await res.json()
 
-    setTimeout(loop, 150)
-  }
+    if (data.screenshot) {
+      screen.src = "data:image/png;base64," + data.screenshot
+    }
+  } catch {}
 
+  setTimeout(loop, 200)
+}
+// remove this maybe
   loop()
   }
