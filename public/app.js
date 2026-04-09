@@ -59,6 +59,38 @@ async function loop() {
 
   setTimeout(loop, 200)
 }
+
+
+screen.addEventListener("click", (e) => {
+  const rect = screen.getBoundingClientRect()
+
+  const x = Math.floor((e.clientX - rect.left))
+  const y = Math.floor((e.clientY - rect.top))
+
+  lastAction = {
+    type: "click",
+    x,
+    y
+  }
+})
+
+document.addEventListener("keydown", (e) => {
+  if (!running) return
+
+  lastAction = {
+    type: "type",
+    text: e.key
+  }
+})
+
+screen.addEventListener("wheel", (e) => {
+  lastAction = {
+    type: "scroll",
+    y: e.deltaY
+  }
+})
+
+
 // remove this maybe
   loop()
   }
