@@ -35,19 +35,59 @@ app.get("/web", async (req, res) => {
 
 app.get("/screenshot", async (req, res) => {
   const url = req.query.url
+  const action = req.query.action ? JSON.parse(req.query.action) : null
+
   if (!url) return res.json({ error: "Missing URL" })
 
+  let actions = []
+
+  if (action) {
+    if (action.type === "click") {
+      actions.push({
+        action: "click",
+        x: action.x,
+        y: action.y
+      })
+    }
+
+    if (action.type === "type") {
+      actions.push({
+        action: "type",
+        text: action.text
+      })
+    }
+
+    if (action.type === "scroll") {
+      actions.push({
+        action: "scroll",
+        x: 0,
+        y: action.y
+      })
+    }
+  }
+
   try {
-    const r = await fetch(
-      `https://api.scrapfly.io/scrape?url=${encodeURIComponent(url)}&render_js=true&screenshot=true&key=${API_KEY}`
-    )
+    const r = await fetch("https://api.scrapfly.io/scrape", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        key: API_KEY,
+        url,
+        render_js: true,
+        screenshot: true,
+        actions
+      })
+    })
+
     const data = await r.json()
 
     res.json({
       screenshot: data.result.screenshot
     })
   } catch (e) {
-    res.json({ error: "Failed to fetch screenshot" })
+    res.json({ error: "Failed" })
   }
 })
 
