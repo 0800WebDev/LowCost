@@ -1,0 +1,18 @@
+body {
+  font-family: Arial;
+}
+
+#container {
+  margin-top: 10px;
+  width: 100%;
+  height: 80vh;
+}
+
+iframe, embed, object, img {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.web {
+  broder: 10px red;
+}
