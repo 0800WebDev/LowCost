@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LowCost Proxy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>LowCost</h1>
+  <h2>Proxy</h2>
+
+<input id="url" placeholder="Enter URL" />
+<select id="mode">
+  <option class="web" value="web">Web Mode</option>
+  <option class="browser" value="browser">Browser Mode</option>
+  <option class="embed" value="iframe">Iframe</option>
+  <option class="embed" value="embed">Embed</option>
+  <option class="embed" value="object">Object</option>
+</select>
+
+<button onclick="go()">Go</button>
+
+<div id="container">
+  <iframe id="frame"></iframe>
+  <img id="screen" />
+</div>
+
+<script src="app.js"></script>
+</body>
+  </html>
