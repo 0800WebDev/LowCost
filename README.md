@@ -12,4 +12,8 @@ the embed mode has three sub modes
 
 its called LowCost because I couldn't find any free methods to get a good proxy so I made the closest thing you can get
 ## url
-no url yet
+[no url yet
+](https://lowcost.bonto.run/)
+
+## other info
+if you are planning on hosting this yourself make sure to get your own api from browserless.io and be prepared for unexpected errors or bugs :)
