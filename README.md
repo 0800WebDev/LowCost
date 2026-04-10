@@ -1,4 +1,5 @@
 # LowCost proxy
+**The cheapest proxy for both the developer and you**
 ## description
 LowCost is a free proxy made by 0800. the proxy uses 3 main methods:
 1. web
@@ -12,7 +13,7 @@ the embed mode has three sub modes
 
 its called LowCost because I couldn't find any free methods to get a good proxy so I made the closest thing you can get
 ## url
-[no url yet
+[lowcost.bonto.run
 ](https://lowcost.bonto.run/)
 
 ## other info
